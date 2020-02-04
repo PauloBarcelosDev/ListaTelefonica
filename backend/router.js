@@ -14,19 +14,20 @@ const createRouter = function(port){
       routes[method][path] = fn;
     };
   });
-  api.interceptors = function(interceptors){
-    interceptors.push(interceptors);
-  }
+ 
+ api.interceptor = function(interceptor){
+    interceptors.push(interceptor);
+  };
   let executeInterceptors = function (number, req,res){
     let interceptor = interceptors[number];
     if(!interceptor) return;
       interceptor(req,res, function(){
-        executeInterceptors(++number, req,res);
+        executeInterceptors(++number, req, res);
       });
   };
   let handleBody = function(req,res, next){
-    var body = [];
-    req.on('data',function (chunk){
+      let body = [];
+      req.on('data',function (chunk){
       body.push(chunk);
     });
     req.on('end', function(){
@@ -36,14 +37,14 @@ const createRouter = function(port){
   }
   http.createServer(function(req,res){
     handleBody(req,res,function(){
-      executeInterceptors(0,req,res);
+      executeInterceptors(0, req, res);
       if(!routes[req.method][req.url])  {
         res.statusCode = 404;
-        res.end();
+        return res.end();
       }
       routes[req.method][req.url](req,res);
-    }).listen(port);
-   });
+    });
+   }).listen(port);
   return api;
 }
 

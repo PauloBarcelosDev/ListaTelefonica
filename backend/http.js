@@ -12,16 +12,16 @@ let contatos = [
   {nome: "Paulo", telefone: "99988887", data: new Date(),  operadora: { nome: "Vivo", codigo: 15, categoria: "ccelular"}},
   {nome: "Lucas", telefone: "99988777",  data: new Date(), operadora: { nome: "Tim", codigo: 41, categoria: "ccelular"}},
 ];
-api.interceptor(function (req,res, next){
+app.interceptor(function (req,res, next){
   res.setHeader('Acess0Control-Allow-Origin', '*' );
   res.setHeader('Acess0Control-Allow-Headers', 'Content-Type' );
   next();
 });
-api.interceptor(function (req,res, next){
+app.interceptor(function (req,res, next){
   res.setHeader('Content-Type', 'aplication/json;charset=UTF-8' );
   next();
 });
-api.interceptor(function(req,res,next){
+app.interceptor(function(req,res,next){
   res.set
 });
 app.get('/operadoras', function(req,res){
