@@ -34,24 +34,27 @@
   <script src="lib/angular/angular-locale_pt-br.js"></script>
   <script>
     angular.module("listaTelefonica",["ngMessages"]);
-    angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($scope){
+    angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($scope, $http){
       $scope.app ="Lista Telefonica";
-      $scope.contatos = [
-        {nome: "Pedro", telefone: "99988877", data: new Date(), operadora: { nome: "Oi", codigo: 14, categoria: "ccelular"}},
-        {nome: "Paulo", telefone: "99988887", data: new Date(),  operadora: { nome: "Vivo", codigo: 15, categoria: "ccelular"}},
-        {nome: "Lucas", telefone: "99988777",  data: new Date(), operadora: { nome: "Tim", codigo: 41, categoria: "ccelular"}},
-      ];
-      $scope.operadoras = [
-        {nome: "Oi", codigo: 014, categoria: "celular", preco:2},
-        {nome: "Vivo", codigo: 015, categoria: "celular", preco:3},
-        {nome: "Tim", codigo: 045, categoria: "celular", preco:1},
-        {nome: "Embratel", codigo: 045, categoria: "fixo", preco:2},
-        {nome: "Gvt", codigo: 045, categoria: "fixo", preco:4},
-      ];
+      $scope.contatos = [];
+      $scope.operadoras = [ ];
+      let carregarContatos = function() {
+        $http.get("http://localhost:3412/contatos").then(function(data ){
+            $scope.contatos = data.data;
+        });
+      }
+      let carregarOperadoras = function() {
+        $http.get("http://localhost:3412/operadoras").then(function(data ){
+            $scope.operadoras = data.data;
+        });
+      }
       $scope.adicionarContato =function(contato){
-        $scope.contatos.push(angular.copy(contato));
-        delete $scope.contato;
+        contato.data = new Date()
+        $http.post("http://localhost:3412/contatos",contato).then(function(data){
+          delete $scope.contato;
         $scope.contatoForm.$setPristine();
+        carregarContatos();
+        });
       }
       $scope.apagarContatos = function(contatos){
          $scope.contatos = contatos.filter(function (contato){
@@ -67,6 +70,8 @@
         $scope.criterioDeOrdenacao = campo;
         $scope.direcaoDaOrdenacao = !$scope.direcaoDaOrdenacao;
       };
+      carregarContatos();
+      carregarOperadoras();
     });
   </script>
   <title>Lista Telefonica</title>
