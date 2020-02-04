@@ -13,8 +13,8 @@ let contatos = [
   {nome: "Lucas", telefone: "99988777",  data: new Date(), operadora: { nome: "Tim", codigo: 41, categoria: "ccelular"}},
 ];
 app.interceptor(function (req,res, next){
-  res.setHeader('Acess0Control-Allow-Origin', '*' );
-  res.setHeader('Acess0Control-Allow-Headers', 'Content-Type' );
+  res.setHeader('Access-Control-Allow-Origin', '*' );
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type' );
   next();
 });
 app.interceptor(function (req,res, next){
