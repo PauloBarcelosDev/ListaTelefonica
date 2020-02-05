@@ -8,9 +8,9 @@ let operadoras = [
   {nome: "Gvt", codigo: 045, categoria: "fixo", preco:4},
 ];
 let contatos = [
-  {nome: "Pedro", telefone: "99988877", data: new Date(), operadora: { nome: "Oi", codigo: 14, categoria: "ccelular"}},
-  {nome: "Paulo", telefone: "99988887", data: new Date(),  operadora: { nome: "Vivo", codigo: 15, categoria: "ccelular"}},
-  {nome: "Lucas", telefone: "99988777",  data: new Date(), operadora: { nome: "Tim", codigo: 41, categoria: "ccelular"}},
+  {nome: "Pedro João carlos", telefone: "99988877", data: new Date(), operadora: { nome: "Oi", codigo: 14, categoria: "ccelular"}},
+  {nome: "Paulo BARCELOS de PAULA", telefone: "99988887", data: new Date(),  operadora: { nome: "Vivo", codigo: 15, categoria: "ccelular"}},
+  {nome: "Lucas da silva pereira", telefone: "99988777",  data: new Date(), operadora: { nome: "Tim", codigo: 41, categoria: "ccelular"}},
 ];
 app.interceptor(function (req,res, next){
   res.setHeader('Access-Control-Allow-Origin', '*' );
