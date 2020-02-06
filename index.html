@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="lib/bootstrap/bootstrap.css">
   <link rel="stylesheet" href="/css/app.css"> 
+  <link rel="stylesheet" href="/css/ui.css"> 
   <script src="lib/angular/angular.js"></script>
   <script src="lib/angular/angular-messages.js"></script>
   <script src="lib/angular/angular-locale_pt-br.js"></script>
@@ -13,13 +14,17 @@
  <script src="js/services/contatosApiService.js"></script>
  <script src="js/services/operadorasApiService.js"></script>
  <script src="js/services/serialGeneratorService.js"></script>
+ <script src="js/directive/uiAlertDirective.js"></script>
  <script src="js/config/serialGeneratorConfig.js"></script>
  <script src="js/value/configValue.js"></script>
+ <script src="js/filters/nameFilter.js"></script>
+ <script src="js/filters/elispsFilter.js"></script>
   <title>Lista Telefonica</title>
 </head>
 <body ng-controller="listaTelefonicaCtrl">
   <div class="jumbotron">
           <h3>{{app}}</h3>
+          <ui-alert title="Ops, Aconteceu um Problema!">{{error}}</ui-alert>  
           <input class="form-control"type="text" ng-model="criterioDeBusca" placeholder="Digite o nome a ser Buscado!">
           <table  ng-show="contatos.length > 0"class="table">
             <tr>
@@ -34,7 +39,7 @@
             <tr ng-class="{'selecionado negrito': contato.selecionado}" ng-repeat="contato in contatos | filter:{nome: criterioDeBusca} | orderBy:criterioDeOrdenacao : direcaoDaOrdenacao" >
                 <td><input type="checkbox" ng-model="contato.selecionado"></td>
                 <td>{{contato.serial}}</td>
-                <td>{{contato.nome | uppercase}}</td>
+                <td>{{contato.nome | name | ellipsis:10}}</td>
                 <td>{{contato.telefone}}</td>
                 <td>{{contato.operadora.nome | lowercase}}</td>
                 <td>{{contato.data | date: 'EEE dd/MM/yyyy HH:mm' }}</td>
