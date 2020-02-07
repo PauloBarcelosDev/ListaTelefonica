@@ -4,9 +4,7 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($sc
   $scope.operadoras = [ ];
   let carregarContatos = function() {
     contatosAPI.getContatos().then(function(data ){
-       data.forEach(function(item){
-          item.serial = serialGenerator.generate();
-       });
+      
         $scope.contatos = data.data;
     }).catch(function(data,status){
       $scope.error = "Não Foi possível carregar os dados!";
@@ -19,7 +17,6 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($sc
   }
   $scope.adicionarContato =function(contato){
       contato.serial= serialGenerator.generate();
-      contato.data = new Date()
       contatosAPI.saveContato(contato).then(function(data){
       delete $scope.contato;
       $scope.contatoForm.$setPristine();
