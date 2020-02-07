@@ -14,8 +14,3 @@ angular.module("listaTelefonica").directive("uiAccordion", function (){
   };
 });
 
-/**
-    ctrl.registerAccordion(scope);
-        scope.open = function(){
-          ctrl.closeAll();
- */
